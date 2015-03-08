@@ -3,3 +3,5 @@ applications:
   command: bin/hubot -a twitter -n travelqabot
   path: .
   memory: 64M
+  services:
+  - travelqabot-service
