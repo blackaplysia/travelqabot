@@ -18,15 +18,12 @@ if (process.env.VCAP_SERVICES) {
 	console.log('Service ' + service_name + ' is not in the VCAP_SERVICES.');
     }
 } else {
-    console.log('No VAP_SERVICES found in ENV.');
+    console.log('No VCAP_SERVICES found in ENV.');
 }
 
 console.log(service_instance_name + '(' + service_instance_plan + '): ' + service_username + ':XXXX@' + service_url);
 
 var auth = 'Basic ' + new Buffer(service_username + ':' + service_password).toString('base64');
-
-exports.host = process.env.VCAP_APP_HOST || 'localhost';
-exports.port = process.env.VCAP_APP_PORT || 3000;
 
 exports.url = service_url;
 exports.username = service_username;
