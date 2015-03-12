@@ -45,12 +45,12 @@ var https = require('https');
             answer = qa.errorNotifications[0].text +
               qa.questionText;
           }
-          return msg.send(answer.substring(0, 120));
+          msg.send(answer.substring(0, 120));
         });
       });
 
       watson_req.on('error', function(err) {
-        return msg.send("Ooops, " + err);
+        msg.send("Ooops, " + err);
       });
 
       var questionData = {
