@@ -45,7 +45,7 @@ var https = require('https');
             answer = qa.errorNotifications[0].text +
               qa.questionText;
           }
-          msg.send(answer.substring(0, 120));
+          msg.send(answer.substring(0, 120) + '...');
         });
       });
 
