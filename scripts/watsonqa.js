@@ -6,13 +6,13 @@
 
 var url = require('url');
 var https = require('https');
-var bmconf = require('./bmconf');
 
 (function() {
   module.exports = function(robot) {
-    return robot.respond(/\s(\S+)/i, function(msg) {
+    var bmconf = require('./bmconf');
 
-      var question = msg.match[1];
+    return robot.respond(/.*/, function(msg) {
+      var question = msg.message.text;
 
       var query = url.parse(bmconf.url + '/v1/question/travel');
       var options = {
@@ -29,26 +29,28 @@ var bmconf = require('./bmconf');
       };
 
       var watson_req = https.request(options, function(result) {
-      result.setEncoding('utf-8');
-      var response_string = '';
-      result.on('data', function(chunk) {
-        response_string += chunk;
-      });
-      result.on('end', function() {
-        var answers = JSON.parse(response_string)[0];
-        if (answers && answers.question &&
-          answers.question.evidencelist &&
-          answers.question.evidencelist.length > 0) {
-            answer = answers.question.evidencelist[1].text;
+        result.setEncoding('utf-8');
+        var response_string = '';
+        result.on('data', function(chunk) {
+          response_string += chunk;
+        });
+        result.on('end', function() {
+          var watson_answer = JSON.parse(response_string)[0];
+          var qa = watson_answer.question;
+          if (watson_answer && qa &&
+            qa.evidencelist &&
+            qa.evidencelist.length > 0) {
+            answer = qa.evidencelist[1].text;
           } else {
-            answer = "Sorry, Watson has no answers for you.";
+            answer = qa.errorNotifications[0].text +
+              qa.questionText;
           }
-        }
-       return msg.send(answer.substring(0, 120));
+          return msg.send(answer.substring(0, 120));
+        });
       });
+
       watson_req.on('error', function(err) {
-        res.status(500);
-        return msg.send("Ooops, #{err}");
+        return msg.send("Ooops, " + err);
       });
 
       var questionData = {
