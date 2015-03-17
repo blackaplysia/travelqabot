@@ -40,7 +40,7 @@ var https = require('https');
           if (watson_answer && qa &&
             qa.evidencelist &&
             qa.evidencelist.length > 0) {
-            answer = qa.evidencelist[1].text;
+            answer = qa.evidencelist[0].text;
           } else {
             answer = qa.errorNotifications[0].text +
               qa.questionText;
