@@ -16,14 +16,22 @@ module.exports = (robot) ->
     id = req.params.id
 
     redis_client = redis.createClient redisconf.port, redisconf.host
-    redis_client.auth redisconf.password
+    redis_client.auth? redisconf.password
+    redis_client.on "error", (err) ->
+      res.type 'html'
+      res.send "\
+<html>\
+  <body>\
+    <h1>#{id}: Internal Error (1)</h1>\
+  </body>\
+</html>"
     redis_client.get id, (err, data_stored) ->
       if err? or not data_stored?
         res.type 'html'
         res.send "\
 <html>\
   <body>\
-    <h1>#{id}: Internal Error</h1>\
+    <h1>#{id}: Internal Error (2)</h1>\
   </body>\
 </html>"
         res.end
