@@ -43,7 +43,7 @@ var shortid= require('shortid');
           redis_client = redis.createClient(redisconf.port, redisconf.host);
           redis_client.auth(redisconf.password);
           redis_client.on("error", function(err) {
-            console.log("Cannot save query log: " + id);
+            console.log("Cannot save query log (" + id + "): " + err);
           });
           redis_client.set(id, response_string);
           redis_client.quit();

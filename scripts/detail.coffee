@@ -18,13 +18,7 @@ module.exports = (robot) ->
     redis_client = redis.createClient redisconf.port, redisconf.host
     redis_client.auth? redisconf.password
     redis_client.on "error", (err) ->
-      res.type 'html'
-      res.send "\
-<html>\
-  <body>\
-    <h1>#{id}: Internal Error (1)</h1>\
-  </body>\
-</html>"
+      console.log "Cannot save query log (#{id}): #{err}"
     redis_client.get id, (err, data_stored) ->
       if err? or not data_stored?
         res.type 'html'
