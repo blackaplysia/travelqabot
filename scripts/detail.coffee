@@ -23,7 +23,7 @@ module.exports = (robot) ->
         res.send "\
 <html>\
   <body>\
-    <h1>#{id}: Internal Error (2)</h1>\
+    <h1>#{id}: Internal Error</h1>\
   </body>\
 </html>"
         res.end

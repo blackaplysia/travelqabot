@@ -49,6 +49,7 @@ var shortid= require('shortid');
           });
           redis_client.on("connect", function() {
             redis_client.set(id, response_string);
+            redis_client.quit();
           });
 
           var uri_server = "http://localhost:3000";
