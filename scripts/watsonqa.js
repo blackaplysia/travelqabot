@@ -6,13 +6,12 @@
 
 var url = require('url');
 var https = require('https');
-var redis = require('redis');
 var shortid= require('shortid');
+var redis_client = require('./redis_client');
 
 (function() {
   module.exports = function(robot) {
     var bmconf = require('./bmconf');
-    var redisconf = require('./redisconf');
 
     return robot.respond(/.*/, function(msg) {
       var question = msg.message.text;
@@ -39,18 +38,7 @@ var shortid= require('shortid');
         });
         result.on('end', function() {
           var id = shortid.generate();
-
-          redis_client = redis.createClient(redisconf.port, redisconf.host);
-          if (redisconf.password) {
-            redis_client.auth(redisconf.password);
-          }
-          redis_client.on("error", function(err) {
-            console.log("Cannot save query log (" + id + "): " + err);
-          });
-          redis_client.on("connect", function() {
-            redis_client.set(id, response_string);
-            redis_client.quit();
-          });
+          redis_client.set(id, response_string);
 
           var uri_server = "http://localhost:3000";
           var uri_dir = "/d";

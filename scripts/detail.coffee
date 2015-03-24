@@ -4,19 +4,16 @@
 # Commands:
 #  d - detail of answers
 
-redis = require 'redis'
+redis_client = require './redis_client'
 
 module.exports = (robot) ->
 
   uri_server = process.env.TRAVELQABOT_URI_SERVER ? "localhost"
   uri_dir = process.env.TRAVELQABOT_URI_DIR ? "/d"
-  redisconf = require './redisconf'
 
   robot.router.get "#{uri_dir}/:id", (req, res) ->
     id = req.params.id
 
-    redis_client = redis.createClient redisconf.port, redisconf.host
-    redis_client.auth? redisconf.password
     redis_client.get id, (err, data_stored) ->
       if err? or not data_stored?
         res.type 'html'
@@ -86,4 +83,3 @@ module.exports = (robot) ->
 </html>"
         res.end
 
-    redis_client.quit
