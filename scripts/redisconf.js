@@ -1,15 +1,17 @@
 var appInfo = JSON.parse(process.env.VCAP_APPLICATION || '{}');
 
-var service_host = '{????}';
-var service_port = '{????}';
-var service_password = '{????}';
+var service_host = 'localhost';
+var service_port = '6379';
+var service_password = null;
+var service_instance_name = 'redis';
+var service_instance_plan = 'local';
 
 if (process.env.VCAP_SERVICES) {
     var services = JSON.parse(process.env.VCAP_SERVICES);
     var service_name = 'redis-2.6';
     if (services[service_name]) {
-	var service_instance_name = services[service_name][0].name;
-	var service_instance_plan = services[service_name][0].plan;
+	service_instance_name = services[service_name][0].name;
+	service_instance_plan = services[service_name][0].plan;
 	var svc = services[service_name][0].credentials;
 	service_host = svc.host;
 	service_port = svc.port;
