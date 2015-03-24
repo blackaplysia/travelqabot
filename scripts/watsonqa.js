@@ -44,13 +44,11 @@ var shortid= require('shortid');
           if (redisconf.password) {
             redis_client.auth(redisconf.password);
           }
-          redis.debug_mode = true;
           redis_client.on("error", function(err) {
             console.log("Cannot save query log (" + id + "): " + err);
           });
           redis_client.on("connect", function() {
             redis_client.set(id, response_string);
-            console.log("Saved query log (" + id + "): ");
           });
 
           var uri_server = "http://localhost:3000";

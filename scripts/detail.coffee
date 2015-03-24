@@ -17,8 +17,6 @@ module.exports = (robot) ->
 
     redis_client = redis.createClient redisconf.port, redisconf.host
     redis_client.auth? redisconf.password
-    redis_client.on "error", (err) ->
-      console.log "Cannot save query log (#{id}): #{err}"
     redis_client.get id, (err, data_stored) ->
       if err? or not data_stored?
         res.type 'html'
@@ -29,6 +27,7 @@ module.exports = (robot) ->
   </body>\
 </html>"
         res.end
+        console.log "Cannot retrieve query log (#{id}): #{err}"
       else
         data = JSON.parse(data_stored)
         raw = JSON.stringify data, null, "  "
