@@ -42,7 +42,7 @@ module.exports = (robot) ->
         else
           focus_sep =''
           q.focuslist.forEach (focus) ->
-            focus_string = focus_string + focus_sep + focus.value.toLowerCase()
+            focus_string = focus_string + focus_sep + focus.value
             focus_sep = ', '
 
         lat_string = ''
@@ -51,7 +51,7 @@ module.exports = (robot) ->
         else
           lat_sep =''
           q.latlist.forEach (lat) ->
-            lat_string = lat_string + lat_sep + lat.value.toLowerCase()
+            lat_string = lat_string + lat_sep + lat.value
             lat_sep = ', '
 
         q_text = q.questionText
