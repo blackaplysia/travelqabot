@@ -14,7 +14,7 @@ var redis_client = require('./redis_client');
     var bmconf = require('./bmconf');
 
     return robot.respond(/.*/, function(msg) {
-      var question = msg.message.text;
+      var question = msg.message.text.replace(/^travelqabot\s*/, '');
 
       var query = url.parse(bmconf.url + '/v1/question/travel');
       var options = {
