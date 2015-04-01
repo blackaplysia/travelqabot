@@ -27,6 +27,6 @@
     "node": "0.10.x"
   },
   "scripts": {
-    "start": "coffee node_modules/.bin/hubot -a twitter -n travelqabot"
+    "start": "bin/hubot -a twitter -n travelqabot"
   }
 }
