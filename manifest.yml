@@ -1,6 +1,5 @@
 applications:
 - name: travelqabot
-  command: bin/hubot -a twitter -n travelqabot
   path: .
   memory: 64M
   services:
