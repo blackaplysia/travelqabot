@@ -11,6 +11,16 @@ module.exports = (robot) ->
   uri_server = process.env.TRAVELQABOT_URI_SERVER ? "localhost"
   uri_dir = process.env.TRAVELQABOT_URI_DIR ? "/d"
 
+  robot.router.get "/", (req, res) ->
+    res.type 'html'
+    res.send "\
+<html>\
+  <body>\
+    <h1>No contents here</h1>\
+  </body>\
+</html>"
+    res.end
+
   robot.router.get "/robots.txt", (req, res) ->
     res.type 'text'
     res.send "User-Agent: *\nDisallow: /\n"
