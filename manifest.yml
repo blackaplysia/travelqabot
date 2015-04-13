@@ -1,7 +1,7 @@
 applications:
 - name: travelqabot
   path: .
-  memory: 64M
+  memory: 256M
   services:
   - travelqabot-service
   - travelqabot-redis
