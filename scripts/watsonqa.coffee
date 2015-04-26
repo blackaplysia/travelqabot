@@ -1,8 +1,8 @@
-// Description
-//  watson
-//
-// Commands:
-//  watson - returns answer of question
+# Description
+#  watson
+#
+# Commands:
+#  watson - returns answer of question
 
 url = require 'url'
 https = require 'https'
