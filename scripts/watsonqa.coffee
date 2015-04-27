@@ -37,7 +37,7 @@ module.exports = (robot) ->
         response_string += chunk
 
       result.on 'end', () ->
-        id = shortid.generate
+        id = shortid.generate()
         redis_client.set id, response_string
 
         uri_h = process.env.TRAVELQABOT_URI_SERVER ? "http://localhost:3000"
