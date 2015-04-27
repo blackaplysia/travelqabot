@@ -8,14 +8,14 @@ url = require 'url'
 https = require 'https'
 shortid= require 'shortid'
 redis_client = require './redis_client'
-bmconf = require './bmconf'
+watsonqa_conf = require './watsonqa_conf'
 
 module.exports = (robot) ->
 
   robot.respond /.*/, (msg) ->
     question = msg.message.text.replace /^travelqabot\s*/, ''
 
-    query = url.parse "#{bmconf.url}/v1/question/travel"
+    query = url.parse "#{watsonqa_conf.url}/v1/question/travel"
     options =
       host: query.hostname
       port: query.port
@@ -25,7 +25,7 @@ module.exports = (robot) ->
         'Content-Type': 'application/json'
         'Accept': 'application/json'
         'X-synctimeout': '30'
-        'Authorization': bmconf.auth
+        'Authorization': watsonqa_conf.auth
 
     watson_req = https.request options, (result) ->
       result.setEncoding 'utf-8'

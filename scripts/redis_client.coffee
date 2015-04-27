@@ -1,9 +1,9 @@
 redis = require 'redis'
-redisconf = require './redisconf'
+redis_conf = require './redis_conf'
 
-client = redis.createClient redisconf.port, redisconf.host
-if redisconf.password?
-  client.auth redisconf.password
+client = redis.createClient redis_conf.port, redis_conf.host
+if redis_conf.password?
+  client.auth redis_conf.password
 
 client.on "error", (err) ->
   console.log "Redis: #{err}"
