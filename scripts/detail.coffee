@@ -13,12 +13,13 @@ module.exports = (robot) ->
 
   robot.router.get "/", (req, res) ->
     res.type 'html'
-    res.send "\
-<html>\
-  <body>\
-    <h1>No contents here</h1>\
-  </body>\
-</html>"
+    res.send """
+      <html>
+        <body>
+          <h1>No contents here</h1>
+        </body>
+      </html>
+    """
     res.end()
 
   robot.router.get "/robots.txt", (req, res) ->
@@ -32,12 +33,13 @@ module.exports = (robot) ->
     redis_client.get id, (err, data_stored) ->
       if err? or not data_stored?
         res.type 'html'
-        res.send "\
-<html>\
-  <body>\
-    <h1>#{id}: Internal Error</h1>\
-  </body>\
-</html>"
+        res.send """
+          <html>
+            <body>
+              <h1>#{id}: Internal Error</h1>
+            </body>
+          </html>
+        """
         res.end()
         console.log "Cannot retrieve query log (#{id}): #{err}"
       else
@@ -76,25 +78,26 @@ module.exports = (robot) ->
         ev_title = ev.title
         ev_file = ev.metadataMap.originalfile
         res.type 'html'
-        res.send "\
-<html>\
-  <body>\
-    <h1>Watson Query Log</h1>
-    <h2>Summary</h2>\
-    <table border=\"1\">\
-      <tr><td>Q&amp;A ID</td><td>#{id}</td></tr>\
-      <tr><td>Question</td><td>#{q_text}</td></tr>\
-      <tr><td>Evidence</td><td>#{ev_text}</td></tr>\
-      <tr><td>Confidence</td><td>#{ev_confidence}</td></tr>\
-      <tr><td>Title</td><td>#{ev_title}</td></tr>\
-      <tr><td>Filename</td><td>#{ev_file}</td></tr>\
-      <tr><td>Question Class List</td><td>#{qclass_string}</td></tr>\
-      <tr><td>Focus List</td><td>#{focus_string}</td></tr>\
-      <tr><td>LAT List</td><td>#{lat_string}</td></tr>\
-    </table>\
-    <h2>Raw data</h2>\
-    <pre>#{raw}</pre>\
-  </body>\
-</html>"
+        res.send """
+          <html>
+            <body>
+              <h1>Watson Query Log</h1>
+              <h2>Summary</h2>
+              <table border=\"1\">
+                <tr><td>Q&amp;A ID</td><td>#{id}</td></tr>
+                <tr><td>Question</td><td>#{q_text}</td></tr>
+                <tr><td>Evidence</td><td>#{ev_text}</td></tr>
+                <tr><td>Confidence</td><td>#{ev_confidence}</td></tr>
+                <tr><td>Title</td><td>#{ev_title}</td></tr>
+                <tr><td>Filename</td><td>#{ev_file}</td></tr>
+                <tr><td>Question Class List</td><td>#{qclass_string}</td></tr>
+                <tr><td>Focus List</td><td>#{focus_string}</td></tr>
+                <tr><td>LAT List</td><td>#{lat_string}</td></tr>
+              </table>
+              <h2>Raw data</h2>
+              <pre>#{raw}</pre>
+            </body>
+          </html>
+        """
         res.end()
 
