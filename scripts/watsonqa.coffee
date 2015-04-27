@@ -16,18 +16,16 @@ module.exports = (robot) ->
     question = msg.message.text.replace /^travelqabot\s*/, ''
 
     query = url.parse "#{bmconf.url}/v1/question/travel"
-    options = {
-      host: query.hostname,
-      port: query.port,
-      path: query.pathname,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'X-synctimeout': '30',
+    options =
+      host: query.hostname
+      port: query.port
+      path: query.pathname
+      method: 'POST'
+      headers:
+        'Content-Type': 'application/json'
+        'Accept': 'application/json'
+        'X-synctimeout': '30'
         'Authorization': bmconf.auth
-      }
-    }
 
     watson_req = https.request options, (result) ->
       result.setEncoding 'utf-8'
@@ -60,14 +58,11 @@ module.exports = (robot) ->
     watson_req.on 'error', (err) ->
       msg.send "Ooops, #{err}"
 
-    questionData = {
-      'question': {
-        'evidenceRequest': {
+    questionData =
+      'question':
+        'evidenceRequest':
           'items': 1
-        },
         'questionText': question
-      }
-    }
 
     watson_req.write JSON.stringify(questionData)
     watson_req.end()
