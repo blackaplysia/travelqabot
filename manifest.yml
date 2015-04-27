@@ -5,3 +5,4 @@ applications:
   services:
   - travelqabot-service
   - travelqabot-redis
+  - travelqabot-monitor
