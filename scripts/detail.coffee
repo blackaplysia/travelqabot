@@ -27,6 +27,50 @@ module.exports = (robot) ->
     res.send "User-Agent: *\nDisallow: /\n"
     res.end()
 
+  robot.router.get "/list", (req, res) ->
+    redis_client.keys '*', (err, keys) ->
+      if err?
+        res.type 'html'
+        res.send """
+          <html>
+            <body>
+              <h1>#{id}: Internal Error</h1>
+            </body>
+          </html>
+        """
+        res.end()
+        console.log "Cannot list query logs: #{err}"
+      else if not keys? or keys.length < 1
+        res.type 'html'
+        res.send """
+          <html>
+            <body>
+              <h1>Watson Query Log List</h1>
+              <ul>
+                <li>(No logs)</li>
+              </ul>
+            </body>
+          </html>
+        """
+        res.end()
+        console.log "Cannot list query logs: #{err}"
+      else
+        res.type 'html'
+        contents = """
+          <html>
+            <body>
+              <h1>Watson Query Log List</h1>
+              <ul>
+        """
+        contents += "<li><a href=\"#{uri_dir}/#{id}\">#{id}</a></li>" for id in keys
+        contents += """
+              </ul>
+            </body>
+          </html>
+        """
+        res.send contents
+        res.end()
+
   robot.router.get "#{uri_dir}/:id", (req, res) ->
     id = req.params.id
 

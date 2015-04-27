@@ -18,3 +18,6 @@ exports.set = (key, val) ->
 
 exports.get = (key, callback) ->
   client.get key, callback
+
+exports.keys = (pattern, callback) ->
+  client.keys pattern, callback
