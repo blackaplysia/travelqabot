@@ -70,5 +70,4 @@ module.exports = (robot) ->
     }
 
     watson_req.write JSON.stringify(questionData)
-    watson_req.end
-
+    watson_req.end()
