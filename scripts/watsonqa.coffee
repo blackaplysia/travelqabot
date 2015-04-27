@@ -8,9 +8,9 @@ url = require 'url'
 https = require 'https'
 shortid= require 'shortid'
 redis_client = require './redis_client'
+bmconf = require './bmconf'
 
 module.exports = (robot) ->
-  bmconf = require './bmconf'
 
   robot.respond /.*/, (msg) ->
     question = msg.message.text.replace /^travelqabot\s*/, ''
