@@ -9,7 +9,7 @@ client.on "error", (err) ->
   console.log "Redis: #{err}"
 
 process.on "beforeExit", () ->
-  client.quit
+  client.quit()
 
 exports.c = client
 

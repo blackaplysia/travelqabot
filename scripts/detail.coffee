@@ -19,12 +19,12 @@ module.exports = (robot) ->
     <h1>No contents here</h1>\
   </body>\
 </html>"
-    res.end
+    res.end()
 
   robot.router.get "/robots.txt", (req, res) ->
     res.type 'text'
     res.send "User-Agent: *\nDisallow: /\n"
-    res.end
+    res.end()
 
   robot.router.get "#{uri_dir}/:id", (req, res) ->
     id = req.params.id
@@ -38,7 +38,7 @@ module.exports = (robot) ->
     <h1>#{id}: Internal Error</h1>\
   </body>\
 </html>"
-        res.end
+        res.end()
         console.log "Cannot retrieve query log (#{id}): #{err}"
       else
         data = JSON.parse(data_stored)
@@ -96,5 +96,5 @@ module.exports = (robot) ->
     <pre>#{raw}</pre>\
   </body>\
 </html>"
-        res.end
+        res.end()
 
