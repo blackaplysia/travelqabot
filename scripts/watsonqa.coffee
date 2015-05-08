@@ -41,13 +41,14 @@ module.exports = (robot) ->
         uri_h = process.env.TRAVELQABOT_URI_SERVER ? "http://localhost:3000"
         uri_d = process.env.TRAVELQABOT_URI_DIR ? "/d"
         link = "#{uri_h}#{uri_d}/#{id}"
+        response_length = process.env.TRAVELQABOT_RESPONSE_LENGTH ? "90"
 
         watson_answer = JSON.parse(response_string)[0]
         if watson_answer?
           q = watson_answer.question;
           if q
             if q.evidencelist?.length? > 0
-              msg.send "#{q.evidencelist[0].text.substring(0, 90)} #{link}"
+              msg.send "#{q.evidencelist[0].text.substring(0, response_length)} #{link}"
             else if q.errorNotifications? > 0
               msg.send "Error: #{q.errornotifications[0].text}"
             else
