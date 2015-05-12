@@ -2,4 +2,4 @@ node_modules
 .DS_Store*
 .hubot_history
 npm-debug.log
-/local_run.sh
+/local_*
